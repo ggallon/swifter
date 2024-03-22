@@ -15,6 +15,8 @@ let package = Package(
         .package(url: "https://github.com/vapor/fluent-postgres-driver.git", from: "2.7.2"),
         // 🍃 An expressive, performant, and extensible templating language built for Swift.
         .package(url: "https://github.com/vapor/leaf.git", from: "4.2.4"),
+        // A Middleware library for adding security headers to your Vapor application.
+        .package(url: "https://github.com/brokenhandsio/VaporSecurityHeaders.git", from: "4.1.0")
     ],
     targets: [
         .executableTarget(
@@ -24,6 +26,7 @@ let package = Package(
                 .product(name: "FluentPostgresDriver", package: "fluent-postgres-driver"),
                 .product(name: "Leaf", package: "leaf"),
                 .product(name: "Vapor", package: "vapor"),
+                .product(name: "VaporSecurityHeaders", package: "VaporSecurityHeaders")
             ]
         ),
         .testTarget(name: "AppTests", dependencies: [

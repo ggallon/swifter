@@ -3,6 +3,7 @@ import Fluent
 import FluentPostgresDriver
 import Leaf
 import Vapor
+import VaporSecurityHeaders
 
 // configures your application
 public func configure(_ app: Application) async throws {
@@ -18,6 +19,14 @@ public func configure(_ app: Application) async throws {
     app.http.server.configuration.supportVersions = [.two]
     // Minimize packet delay.
     app.http.server.configuration.tcpNoDelay = true
+    // A Middleware library for adding security headers to your Vapor application.
+    app.middleware = Middlewares()
+    let strictTransportSecurityConfig = StrictTransportSecurityConfiguration(
+        maxAge: 31536000, includeSubdomains: true, preload: true
+    )
+    let securityHeadersFactory = SecurityHeadersFactory().with(strictTransportSecurity: strictTransportSecurityConfig)
+    app.middleware.use(securityHeadersFactory.build())
+    app.middleware.use(ErrorMiddleware.default(environment: app.environment))
 
     // uncomment to serve files from /Public folder
     // app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
