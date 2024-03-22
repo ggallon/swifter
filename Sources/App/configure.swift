@@ -15,8 +15,6 @@ public func configure(_ app: Application) async throws {
     app.http.server.configuration.serverName = "proactice"
     // Support HTTP pipelining.
     app.http.server.configuration.supportPipelining = true
-    // Only support HTTP/2
-    app.http.server.configuration.supportVersions = [.two]
     // Minimize packet delay.
     app.http.server.configuration.tcpNoDelay = true
     // A Middleware library for adding security headers to your Vapor application.
